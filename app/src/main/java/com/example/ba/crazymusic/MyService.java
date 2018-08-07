@@ -6,52 +6,42 @@ import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.ba.crazymusic.Itemsong;
-import com.example.ba.crazymusic.MediaManager;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MyService extends Service {
-    private MediaManager mediaManager;
-    private List<Itemsong> itemsongs;
+    private MediaManager mMediaManager;
+    private List<Itemsong> mItemsongs;
 
-    public void setItemsongs(List<Itemsong> itemsongs) {
-        this.itemsongs = itemsongs;
+    public void setItemsongs(List<Itemsong> mItemsongs) {
+        this.mItemsongs = mItemsongs;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaManager = new MediaManager();
-        Log.d("create service", "create service");
+        mMediaManager = new MediaManager();
     }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        int a = 0;
-        return START_REDELIVER_INTENT;
-
+        return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
     }
 
     public void play(int position) {
         try {
-            mediaManager.setMcontext(this);
-            mediaManager.setResource(itemsongs.get(position).getmResMp3());
+            mMediaManager.setContext(this);
+            mMediaManager.setResource(mItemsongs.get(position).getResource());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mediaManager.play();
+        mMediaManager.play();
     }
 
     public void playNext(int position) {
@@ -60,44 +50,35 @@ public class MyService extends Service {
     }
 
     public void pause() {
-        mediaManager.pause();
+        mMediaManager.pause();
     }
 
     public int getCurrentPosition() {
-        return mediaManager.getCurrentPosition();
+        return mMediaManager.getCurrentPosition();
     }
 
     public void stop() {
-        mediaManager.stop();
+        mMediaManager.stop();
     }
 
     public void resume() {
-        mediaManager.resume();
+        mMediaManager.resume();
     }
 
     @Override
     public void unbindService(ServiceConnection conn) {
         super.unbindService(conn);
-        Toast.makeText(this, "unbindService", Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new MyBinder(this);
+        return new MyBinder();
     }
 
-
-    public static class MyBinder extends Binder {
-        public MyService service;
-
-        public MyBinder(MyService service) {
-
-            this.service = service;
-        }
-
+    public class MyBinder extends Binder {
         public MyService getService() {
-            return service;
+            return MyService.this;
         }
     }
 }

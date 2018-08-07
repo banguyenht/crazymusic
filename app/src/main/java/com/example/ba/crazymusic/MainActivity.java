@@ -1,6 +1,5 @@
 package com.example.ba.crazymusic;
 
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements
     private int mCurrentPosition;
     String TAG = MainActivity.class.getName();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
+        initView();
+        initData();
         initService();
     }
 
@@ -78,16 +75,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onClick(int position) {
         mButtonPausePlay.setBackgroundResource(android.R.drawable.ic_media_pause);
         mService.play(position);
         mCurrentPosition = position;
-        mIsPlay=true;
+        mIsPlay = true;
     }
 
     @Override
@@ -100,9 +92,22 @@ public class MainActivity extends AppCompatActivity implements
         return mListsong.size();
     }
 
-    private void init() {
+    private void initView() {
         mRecyclerView = findViewById(R.id.recyclerview_rc);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new SongAdapter();
+        mAdapter.setmIAdapter(this);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+        mButtonNext = findViewById(R.id.button_next);
+        mButtonNext.setOnClickListener(this);
+        mButtonPrevious = findViewById(R.id.button_previous);
+        mButtonPrevious.setOnClickListener(this);
+        mButtonPausePlay = findViewById(R.id.button_play_pause);
+        mButtonPausePlay.setOnClickListener(this);
+    }
+
+    public void initData() {
         mListsong = new ArrayList<>();
         mListsong.add(new Itemsong(R.raw.anhkhonghoitiec, SONGNAMES[0]));
         mListsong.add(new Itemsong(R.raw.chamdaynoidau, SONGNAMES[1]));
@@ -117,16 +122,6 @@ public class MainActivity extends AppCompatActivity implements
         mListsong.add(new Itemsong(R.raw.yeunham, SONGNAMES[4]));
         mListsong.add(new Itemsong(R.raw.nguoiamphu, SONGNAMES[7]));
         mListsong.add(new Itemsong(R.raw.ngo, SONGNAMES[5]));
-        mAdapter = new SongAdapter();
-        mAdapter.setmIAdapter(this);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-        mButtonNext = findViewById(R.id.button_next);
-        mButtonNext.setOnClickListener(this);
-        mButtonPrevious = findViewById(R.id.button_previous);
-        mButtonPrevious.setOnClickListener(this);
-        mButtonPausePlay = findViewById(R.id.button_play_pause);
-        mButtonPausePlay.setOnClickListener(this);
     }
 
     public void initService() {

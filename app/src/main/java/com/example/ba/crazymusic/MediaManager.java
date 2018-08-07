@@ -5,64 +5,63 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-/**
- * Created by Lap trinh on 3/7/2018.
- */
-
 public class MediaManager {
-    private MediaPlayer mediaPlayer;
-    private Context mcontext;
+    private MediaPlayer mMediaPlayer;
+    private Context mContext;
+
     public MediaManager() {
     }
 
-    public void setMcontext(Context mcontext) {
-        this.mcontext = mcontext;
+    public void setContext(Context mContext) {
+        this.mContext = mContext;
     }
 
     public void setResource(int path)
             throws IOException {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
         }
-        mediaPlayer = MediaPlayer.create(mcontext,path);
+        mMediaPlayer = MediaPlayer.create(mContext, path);
     }
 
     public void play() {
-        if (mediaPlayer != null){
-            mediaPlayer.start();
+        if (mMediaPlayer != null) {
+            mMediaPlayer.start();
         }
     }
-    public int getCurrentPosition(){
-        if (mediaPlayer!=null){
-            return mediaPlayer.getCurrentPosition();
+
+    public int getCurrentPosition() {
+        if (mMediaPlayer != null) {
+            return mMediaPlayer.getCurrentPosition();
         }
         return 0;
     }
 
     public void pause() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.pause();
         }
     }
 
     public void stop() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
         }
     }
 
     public void release() {
-        if (mediaPlayer == null) {
+        if (mMediaPlayer == null) {
             return;
         }
-        mediaPlayer.release();
-        mediaPlayer = null;
+        mMediaPlayer.release();
+        mMediaPlayer = null;
     }
-    public void resume(){
-        if(mediaPlayer== null){
+
+    public void resume() {
+        if (mMediaPlayer == null) {
             return;
         }
-        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
-        mediaPlayer.start();
+        mMediaPlayer.seekTo(mMediaPlayer.getCurrentPosition());
+        mMediaPlayer.start();
     }
 }

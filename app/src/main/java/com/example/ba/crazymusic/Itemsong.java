@@ -1,27 +1,27 @@
 package com.example.ba.crazymusic;
 
 public class Itemsong {
-    private int mResMp3;
-    private String mDisplay;
+    private int mResource;
+    private String mTitleSong;
 
-    public Itemsong(int mResMp3, String mDisplay) {
-        this.mResMp3 = mResMp3;
-        this.mDisplay = mDisplay;
+    public Itemsong(int mResource, String mTitleSong) {
+        this.mResource = mResource;
+        this.mTitleSong = mTitleSong;
     }
 
-    public int getmResMp3() {
-        return mResMp3;
+    public int getResource() {
+        return mResource;
     }
 
-    public void setmResMp3(int mResMp3) {
-        this.mResMp3 = mResMp3;
+    public void setResource(int mResMp3) {
+        this.mResource = mResMp3;
     }
 
-    public String getmDisplay() {
-        return mDisplay;
+    public String getDisplay() {
+        return mTitleSong;
     }
 
-    public void setmDisplay(String mDisplay) {
-        this.mDisplay = mDisplay;
+    public void setTitleSong(String mTitleSong) {
+        this.mTitleSong = mTitleSong;
     }
 }

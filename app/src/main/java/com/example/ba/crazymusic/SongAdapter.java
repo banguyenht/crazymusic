@@ -1,6 +1,5 @@
 package com.example.ba.crazymusic;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongItemView> {
-        private IAdapter mIAdapter;
+    private IAdapter mIAdapter;
 
     public void setmIAdapter(IAdapter mIAdapter) {
         this.mIAdapter = mIAdapter;
@@ -24,16 +23,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongItemView> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongItemView songItemView,final int i) {
-        final Itemsong mCurrentSong=mIAdapter.getItem(i);
-        songItemView.mTextViewTitle.setText(mCurrentSong.getmDisplay());
+    public void onBindViewHolder(@NonNull SongItemView songItemView, final int i) {
+        final Itemsong mCurrentSong = mIAdapter.getItem(i);
+        songItemView.mTextViewTitle.setText(mCurrentSong.getDisplay());
         songItemView.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mIAdapter.onClick(i);
             }
         });
-
     }
 
     @Override
@@ -49,10 +47,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongItemView> 
             mTextViewTitle = itemView.findViewById(R.id.textview_title);
         }
     }
-     public interface IAdapter{
+
+    public interface IAdapter {
         void onClick(int position);
         Itemsong getItem(int positon);
         int getCount();
-     }
-
+    }
 }

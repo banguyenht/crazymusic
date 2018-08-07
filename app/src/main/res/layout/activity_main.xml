@@ -23,20 +23,18 @@
         <Button
             android:id="@+id/button_previous"
             style="@style/ButtonController"
-            android:background="@android:drawable/ic_media_previous"
-            android:src="@drawable/ic_previous" />
+            android:background="@android:drawable/ic_media_previous" />
 
         <Button
             android:id="@+id/button_play_pause"
             style="@style/ButtonController"
-            android:background="@android:drawable/ic_media_play"
-            android:src="@drawable/ic_play" />
+            android:background="@android:drawable/ic_media_play" />
 
         <Button
             android:id="@+id/button_next"
             style="@style/ButtonController"
-            android:background="@android:drawable/ic_media_next"
-            android:src="@drawable/ic_next" />
+            android:background="@android:drawable/ic_media_next" />
     </LinearLayout>
 
 </LinearLayout>
+

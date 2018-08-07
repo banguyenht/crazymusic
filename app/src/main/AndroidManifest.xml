@@ -12,19 +12,10 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <service android:name=".MyService" />
-        <receiver android:name=".MyService$ServiceReiviver">
-            <intent-filter>
-                <action android:name="com.example.ba.crazymusic.PLAY" />
-                <action android:name="com.example.ba.crazymusic.PAUSE" />
-                <action android:name="com.example.ba.crazymusic.NEXT" />
-                <action android:name="com.example.ba.crazymusic.PREVIOUS" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
