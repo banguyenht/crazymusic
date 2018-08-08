@@ -3,25 +3,24 @@ package com.example.ba.crazymusic;
 import android.app.Service;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MyService extends Service {
+public class MyService extends Service implements IMediaManager {
     private MediaManager mMediaManager;
-    private List<Itemsong> mItemsongs;
-
-    public void setItemsongs(List<Itemsong> mItemsongs) {
-        this.mItemsongs = mItemsongs;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mMediaManager = new MediaManager();
+//        mMediaManager = new MediaManager(this);
+        mMediaManager = new MediaManager(this);
     }
 
     @Override
@@ -29,46 +28,51 @@ public class MyService extends Service {
         return START_STICKY;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    public void play(int position) {
-        try {
-            mMediaManager.setContext(this);
-            mMediaManager.setResource(mItemsongs.get(position).getResource());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mMediaManager.play();
-    }
-
-    public void playNext(int position) {
-        stop();
-        play(position);
-    }
-
-    public void pause() {
-        mMediaManager.pause();
-    }
-
     public int getCurrentPosition() {
         return mMediaManager.getCurrentPosition();
     }
 
+    @Override
+    public int getDuration() {
+        return mMediaManager.getDuration();
+    }
+
+    @Override
+    public void onChangeStateMedia() {
+        mMediaManager.onChangeStateMedia();
+    }
+
+    @Override
+    public void resume() {
+        mMediaManager.resume();
+
+    }
+
+    @Override
+    public void playSong(int idResource) {
+        mMediaManager.playSong(idResource);
+    }
+
+    @Override
     public void stop() {
         mMediaManager.stop();
     }
 
-    public void resume() {
-        mMediaManager.resume();
+    @Override
+    public void release() {
+        mMediaManager.release();
     }
 
     @Override
-    public void unbindService(ServiceConnection conn) {
-        super.unbindService(conn);
+    public void pause() {
+        mMediaManager.pause();
     }
+
+    public void addListener(OnChangeStateListener listener) {
+        mMediaManager.addListener(listener);
+    }
+
+
 
     @Nullable
     @Override
@@ -81,4 +85,5 @@ public class MyService extends Service {
             return MyService.this;
         }
     }
+
 }
